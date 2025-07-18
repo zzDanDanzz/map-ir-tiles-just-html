@@ -18,7 +18,7 @@
 
   <body>
     <h1>Vector</h1>
-
+    <p><strong>type:</strong> vector, <strong>lib:</strong> maplibre</p>
     <label>
       Map Style:
       <select id="vectorStyles">
@@ -40,19 +40,45 @@
     <div id="map"></div>
     <script src="js/apikey.js"></script>
     <script>
+      maplibregl.setRTLTextPlugin(
+        "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.3.0/dist/mapbox-gl-rtl-text.js",
+        true // Lazy load the plugin
+      );
+
       const map = new maplibregl.Map({
         container: "map",
-        style: "https://demotiles.maplibre.org/style.json",
+        style: "https://map.ir/vector/styles/main/mapir-xyz-style.json",
         center: [51.389, 35.6892],
         zoom: 10,
+        attributionControl: false,
+        transformRequest: (url) => {
+          return {
+            url,
+            headers: { "x-api-key": window.apiKey },
+          };
+        },
       });
 
-      function handleVectorStyles() {
+      map.addControl(
+        new maplibregl.AttributionControl({
+          compact: true,
+          customAttribution: "© Map.ir © OSM",
+        })
+      );
+
+      function handleVectorStylesChange() {
         const vectorStyles = document.getElementById("vectorStyles");
         vectorStyles.addEventListener("change", (event) => {
-          console.log(`Selected style: ${event.target.value}`);
+          map.setStyle(
+            `https://map.ir/vector/styles/main/${event.target.value}.json`,
+            {
+              diff: false,
+            }
+          );
         });
       }
+
+      handleVectorStylesChange();
     </script>
   </body>
 </html>
