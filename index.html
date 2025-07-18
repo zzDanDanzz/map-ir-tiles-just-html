@@ -36,7 +36,9 @@
     <div id="map"></div>
     <script src="js/apikey.js"></script>
     <script>
-      const map = L.map("map");
+      const map = L.map("map", {
+        attributionControl: false,
+      }).setView([35.6892, 51.389], 10);
 
       const wmsUrl = `https://map.ir/shiveh?x-api-key=${window.apiKey}`;
 
@@ -46,10 +48,15 @@
           transparent: false,
           version: "1.1.1",
           format: "image/png",
+          attribution: "© Map.ir © OSM",
         })
         .addTo(map);
 
-      map.setView([35.6892, 51.389], 10);
+      L.control
+        .attribution({
+          prefix: false,
+        })
+        .addTo(map);
     </script>
   </body>
 </html>

@@ -35,16 +35,23 @@
     <div id="map"></div>
     <script src="js/apikey.js"></script>
     <script>
-      const map = L.map("map");
+      const map = L.map("map", {
+        attributionControl: false,
+      }).setView([35.6892, 51.389], 10);
 
       const tmsUrl = `https://map.ir/shiveh/tms/1.0.0/Shiveh:Shiveh@EPSG:3857@png/{z}/{x}/{y}.png/?x-api-key=${window.apiKey}`;
 
       L.tileLayer(tmsUrl, {
         maxZoom: 20,
         tms: true,
+        attribution: "© Map.ir © OSM",
       }).addTo(map);
 
-      map.setView([35.6892, 51.389], 10);
+      L.control
+        .attribution({
+          prefix: false,
+        })
+        .addTo(map);
     </script>
   </body>
 </html>
