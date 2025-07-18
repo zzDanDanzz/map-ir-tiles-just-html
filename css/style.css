@@ -42,3 +42,11 @@ body {
 .link:hover::before {
   transform: scaleY(1);
 }
+
+#clearApiKey {
+  float: right;
+}
+
+.link.active::before {
+  background-color: #ea4c89;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="map-ir.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map.ir Tile Services Demo</title>
+
+    <script src="https://unpkg.com/maplibre-gl@^5.6.1/dist/maplibre-gl.js"></script>
+    <link
+      href="https://unpkg.com/maplibre-gl@^5.6.1/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <h1>Vector</h1>
+
+    <label>
+      Map Style:
+      <select id="vectorStyles">
+        <option value="mapir-xyz-style">XYZ Style</option>
+        <option value="mapir-style-dark">Dark Style</option>
+        <option value="mapir-xyz-light-style">XYZ Light Style</option>
+        <option value="mapir-Dove-style">Dove Style</option>
+        <option value="mapir-frank-style">Frank Style</option>
+      </select>
+    </label>
+    <nav>
+      <a class="link" href="index.html">WMS</a>
+      <a class="link" href="xyz.html">XYZ</a>
+      <a class="link" href="tms.html">TMS</a>
+      <a class="link active" href="vector.html">Vector</a>
+
+      <button id="clearApiKey">🗑 Clear API Key</button>
+    </nav>
+    <div id="map"></div>
+    <script src="js/apikey.js"></script>
+    <script>
+      const map = new maplibregl.Map({
+        container: "map",
+        style: "https://demotiles.maplibre.org/style.json",
+        center: [51.389, 35.6892],
+        zoom: 10,
+      });
+
+      function handleVectorStyles() {
+        const vectorStyles = document.getElementById("vectorStyles");
+        vectorStyles.addEventListener("change", (event) => {
+          console.log(`Selected style: ${event.target.value}`);
+        });
+      }
+    </script>
+  </body>
+</html>
