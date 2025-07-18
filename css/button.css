@@ -1,0 +1,35 @@
+.button {
+  overflow: hidden;
+  padding: 0.2rem 0.6rem;
+  border-radius: 7px;
+  background-color: darkgray;
+  color: white;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  border-color: transparent;
+}
+
+.button span {
+  position: relative;
+  transition: color 0.6s cubic-bezier(0.53, 0.21, 0, 1);
+}
+
+.button:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: hsl(244, 63%, 69%);
+  transform: scaleX(0);
+  transform-origin: 100% 100%;
+  transition: transform 0.6s cubic-bezier(0.53, 0.21, 0, 1);
+}
+
+.button:hover::before {
+  transform-origin: 0 0;
+  transform: scaleX(1);
+}
