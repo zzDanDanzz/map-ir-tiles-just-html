@@ -23,7 +23,7 @@
   </head>
 
   <body>
-    <h1>WMS</h1>
+    <h1>XYZ</h1>
     <nav>
       <a class="link" href="index.html">WMS</a>
       <a class="link" href="xyz.html">XYZ</a>
@@ -36,16 +36,12 @@
     <script>
       const map = L.map("map");
 
-      const wmsUrl = `https://map.ir/shiveh?x-api-key=${window.apiKey}`;
+      const tmsUrl = `https://map.ir/shiveh/tms/1.0.0/Shiveh:Shiveh@EPSG:3857@png/{z}/{x}/{y}.png/?x-api-key=${window.apiKey}`;
 
-      L.tileLayer
-        .wms(wmsUrl, {
-          layers: "Shiveh:Shiveh",
-          transparent: false,
-          version: "1.1.1",
-          format: "image/png",
-        })
-        .addTo(map);
+      L.tileLayer(tmsUrl, {
+        maxZoom: 20,
+        tms: true,
+      }).addTo(map);
 
       map.setView([35.6892, 51.389], 10);
     </script>
