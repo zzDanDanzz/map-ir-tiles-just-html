@@ -17,38 +17,56 @@
   </head>
 
   <body>
-    <h1>Vector</h1>
-    <p><strong>type:</strong> vector, <strong>lib used:</strong> maplibre</p>
+    <h1>Google</h1>
+    <p><strong>type:</strong> raster, <strong>lib used:</strong> maplibre</p>
     <label>
       Map Style:
-      <select id="vectorStyles">
-        <option value="mapir-xyz-style">XYZ Style</option>
-        <option value="mapir-style-dark">Dark Style</option>
-        <option value="mapir-xyz-light-style">XYZ Light Style</option>
-        <option value="mapir-Dove-style">Dove Style</option>
-        <option value="mapir-frank-style">Frank Style</option>
+      <select id="rasterStyles">
+        <option value="s">Satellite</option>
+        <option value="y">Satellite Label</option>
+        <option value="p">Terrain Label</option>
+        <option value="p,traffic">Terrain Traffic Label</option>
       </select>
     </label>
     <nav>
       <a class="link" href="index.html">WMS</a>
       <a class="link" href="xyz.html">XYZ</a>
       <a class="link" href="tms.html">TMS</a>
-      <a class="link active" href="vector.html">Vector</a>
-      <a class="link" href="google.html">Google</a>
+      <a class="link" href="vector.html">Vector</a>
+      <a class="link active" href="google.html">Google</a>
 
       <button id="clearApiKey">🗑 Clear API Key</button>
     </nav>
     <div id="map"></div>
     <script src="js/apikey.js"></script>
     <script>
-      maplibregl.setRTLTextPlugin(
-        "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.3.0/dist/mapbox-gl-rtl-text.js",
-        true // Lazy load the plugin
-      );
+      function styleTemplate(lyrs) {
+        return {
+          version: 8,
+          sources: {
+            "raster-tiles": {
+              type: "raster",
+              tiles: [
+                `https://map.ir/google/vt/lyrs=${lyrs}&hl=fa&x={x}&y={y}&z={z}`,
+              ],
+              tileSize: 256,
+            },
+          },
+          layers: [
+            {
+              id: "simple-tiles",
+              type: "raster",
+              source: "raster-tiles",
+              minzoom: 0,
+              maxzoom: 22,
+            },
+          ],
+        };
+      }
 
       const map = new maplibregl.Map({
         container: "map",
-        style: "https://map.ir/vector/styles/main/mapir-xyz-style.json",
+        style: styleTemplate("s"),
         center: [51.389, 35.6892],
         zoom: 10,
         attributionControl: false,
@@ -67,19 +85,14 @@
         })
       );
 
-      function handleVectorStylesChange() {
-        const vectorStyles = document.getElementById("vectorStyles");
-        vectorStyles.addEventListener("change", (event) => {
-          map.setStyle(
-            `https://map.ir/vector/styles/main/${event.target.value}.json`,
-            {
-              diff: false,
-            }
-          );
+      function handleRasterStylesChange() {
+        const rasterStyles = document.getElementById("rasterStyles");
+        rasterStyles.addEventListener("change", (event) => {
+          map.setStyle(styleTemplate(event.target.value));
         });
       }
 
-      handleVectorStylesChange();
+      handleRasterStylesChange();
     </script>
   </body>
 </html>
