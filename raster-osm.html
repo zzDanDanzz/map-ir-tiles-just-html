@@ -22,16 +22,15 @@
   </head>
 
   <body>
-    <h1>XYZ</h1>
-    <p><strong>type:</strong> raster, <strong>lib used:</strong> leaflet</p>
-    <nav>
-      <a class="link" href="index.html">WMS</a>
-      <a class="link" href="xyz.html">XYZ</a>
-      <a class="link active" href="tms.html">TMS</a>
-      <a class="link" href="vector.html">Vector</a>
-      <a class="link" href="google.html">Google</a>
-      <button id="clearApiKey" class="button">🗑 Clear API Key</button>
-    </nav>
+    <h1>raster-xyz-osm.html</h1>
+
+    <div class="flex">
+      <p><strong>type:</strong> raster, <strong>lib used:</strong> leaflet</p>
+      <button id="clearApiKey" class="button">
+        <span>🗑 Clear API Key</span>
+      </button>
+    </div>
+
     <div id="map"></div>
     <script src="js/apikey.js"></script>
     <script>
@@ -39,11 +38,10 @@
         attributionControl: false,
       }).setView([35.6892, 51.389], 10);
 
-      const tmsUrl = `https://map.ir/shiveh/tms/1.0.0/Shiveh:Shiveh@EPSG:3857@png/{z}/{x}/{y}.png/?x-api-key=${window.apiKey}`;
+      const xyzUrl = `https://map.ir/shiveh/xyz/1.0.0/Shiveh:Shiveh@EPSG:3857@png/{z}/{x}/{y}.png?x-api-key=${window.apiKey}`;
 
-      L.tileLayer(tmsUrl, {
+      L.tileLayer(xyzUrl, {
         maxZoom: 20,
-        tms: true,
         attribution: "© Map.ir © OSM",
       }).addTo(map);
 
