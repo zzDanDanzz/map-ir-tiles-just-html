@@ -1,13 +1,13 @@
-.link {
+a {
   position: relative;
   font-size: 1.25rem;
 }
 
-.link span {
+a span {
   position: relative;
 }
 
-.link::before {
+a::before {
   content: "";
   position: absolute;
   left: -0.1px;
@@ -21,10 +21,10 @@
   opacity: 0.6;
 }
 
-.link:hover::before {
+a:hover::before {
   transform: scaleY(1);
 }
 
-.link.active::before {
+a.active::before {
   background-color: #ea4c89;
 }
